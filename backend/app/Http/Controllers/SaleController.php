@@ -69,7 +69,6 @@ class SaleController extends Controller
                     ->decrement('stock', $item['quantity']);
             }
 
-            // Kembalikan sale beserta relasi-relasinya
             return response()->json($sale->load('items.product', 'customer'), 201);
         });
     }

@@ -20,14 +20,12 @@ export default function Sales() {
   const [customers, setCustomers] = useState([])
   const [products,  setProducts]  = useState([])
 
-  // State form penjualan
   const [form, setForm] = useState({
     customer_id: '',
     date: new Date().toISOString().split('T')[0],  // hari ini
     notes: ''
   })
 
-  // Item-item dalam transaksi
   const [items, setItems] = useState([
     { product_id: '', quantity: 1, price: 0 }
   ])
@@ -40,7 +38,6 @@ export default function Sales() {
   useEffect(() => { fetchSales() }, [fetchSales])
 
   const openModal = () => {
-    // Fetch customers dan products saat modal dibuka
     api.get('/customers', { params: { page: 1, per_page: 1000  } }).then(res => setCustomers(res.data.data))
     api.get('/products',  { params: { page: 1, per_page: 1000  } }).then(res => setProducts(res.data.data))
     setForm({ customer_id: '', date: new Date().toISOString().split('T')[0], notes: '' })
@@ -48,23 +45,19 @@ export default function Sales() {
     setModal(true)
   }
 
-  // Tambah baris item baru
   const addItem = () => {
     setItems(prev => [...prev, { product_id: '', quantity: 1, price: 0 }])
   }
 
-  // Hapus baris item
   const removeItem = (index) => {
     setItems(prev => prev.filter((_, i) => i !== index))
   }
 
-  // Update nilai field di baris item tertentu
   const updateItem = (index, field, value) => {
     setItems(prev => {
       const updated = [...prev]
       updated[index] = { ...updated[index], [field]: value }
 
-      // Kalau ganti produk, otomatis isi harganya
       if (field === 'product_id') {
         const product = products.find(p => p.id == value)
         if (product) updated[index].price = product.price
@@ -74,7 +67,6 @@ export default function Sales() {
     })
   }
 
-  // Hitung total dari semua item
   const total = items.reduce((sum, item) => {
     return sum + (parseFloat(item.quantity) * parseFloat(item.price) || 0)
   }, 0)

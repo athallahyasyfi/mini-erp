@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-// Daftar menu navigasi
 const menu = [
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/products',  label: 'Produk' },

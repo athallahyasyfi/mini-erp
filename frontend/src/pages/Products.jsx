@@ -2,13 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import api from '../api/axios'
 import Modal from '../components/Modal'
 
-// Data form kosong
 const EMPTY_FORM = {
   code: '', name: '', description: '',
   category: '', price: '', stock: '', unit: 'pcs'
 }
 
-// Style untuk input yang konsisten
 const inputStyle = {
   width: '100%',
   border: '1px solid #e2e8f0',
@@ -36,16 +34,14 @@ export default function Products() {
   const [form,     setForm]     = useState(EMPTY_FORM)
   const [saving,   setSaving]   = useState(false)
 
-  // Fungsi fetch data — dibungkus useCallback supaya bisa dipakai di useEffect
   const fetchProducts = useCallback(() => {
     api.get('/products', { params: { search, page } })
       .then(res => {
-        setProducts(res.data.data)    // array produk
-        setMeta(res.data)             // info pagination (current_page, last_page, dll)
+        setProducts(res.data.data)
+        setMeta(res.data)
       })
   }, [search, page])
 
-  // Jalankan fetchProducts setiap kali search atau page berubah
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
@@ -87,7 +83,7 @@ export default function Products() {
       } else {
         await api.put(`/products/${selected.id}`, form)
       }
-      fetchProducts()   // refresh tabel
+      fetchProducts()
       closeModal()
     } catch (err) {
       const msg = err.response?.data?.message ?? 'Terjadi kesalahan.'

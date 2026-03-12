@@ -13,12 +13,10 @@ import Sales     from './pages/Sales'
 
 import './index.css'
 
-// Komponen penjaga: hanya izinkan masuk kalau sudah login
 // eslint-disable-next-line react-refresh/only-export-components
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
 
-  // Masih cek token, tampilkan loading dulu
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center text-sm text-gray-500">
@@ -27,7 +25,6 @@ function ProtectedRoute({ children }) {
     )
   }
 
-  // Belum login? Redirect ke halaman login
   if (!user) {
     return <Navigate to="/login" replace />
   }

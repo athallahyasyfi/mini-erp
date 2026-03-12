@@ -1,7 +1,5 @@
-// Modal muncul di tengah layar di atas konten lain
 export default function Modal({ title, onClose, children }) {
   return (
-    // Overlay gelap di belakang modal
     <div
       style={{
         position: 'fixed', inset: 0, zIndex: 50,

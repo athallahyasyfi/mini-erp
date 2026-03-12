@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import api from '../api/axios'
 
-// Komponen kartu statistik kecil
 function StatCard({ label, value, note }) {
   return (
     <div style={{
@@ -39,7 +38,6 @@ export default function Dashboard() {
       maximumFractionDigits: 0
     }).format(n)
 
-  // Nilai maksimum untuk skala bar chart
   const maxSales = Math.max(...(data.sales_chart.map(r => r.total) || [1]), 1)
 
   return (
