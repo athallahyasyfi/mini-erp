@@ -35,8 +35,6 @@ class SaleController extends Controller
             'notes'              => 'nullable|string',
         ]);
 
-        // DB::transaction memastikan semua atau tidak ada yang tersimpan
-        // Kalau di tengah jalan error, semua perubahan dibatalkan
         return DB::transaction(function () use ($request) {
             // Hitung total dari semua item
             $total = collect($request->items)
